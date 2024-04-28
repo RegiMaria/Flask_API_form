@@ -1,0 +1,64 @@
+#%RAML 1.0
+title: API simples para cadastrar usuários
+version: v1
+baseUri: http://127.0.0.1:5000
+
+/users:
+  displayName: Usuários
+  description: Endpoint para operações relacionadas a usuários.
+
+  /register:
+    displayName: Registro de Usuário
+    description: Endpoint para registrar novos usuários.
+
+    post:
+      description: Registra um novo usuário.
+      requestBody:
+        application/x-www-form-urlencoded:
+          formParameters:
+            username:
+              description: Nome de usuário.
+              required: true
+              type: string
+            email:
+              description: Endereço de e-mail do usuário.
+              required: true
+              type: string
+      responses:
+        200:
+          description: Sucesso ao registrar o usuário.
+          body:
+            application/json:
+              example: |
+                {
+                  "message": "Dados cadastrados com sucesso na API"
+                }
+        400:
+          description: Falha ao registrar o usuário.
+          body:
+            application/json:
+              example: |
+                {
+                  "error": "Dados inválidos"
+                }
+
+/api/usuarios:
+  displayName: Lista de Usuários
+  description: Endpoint para obter a lista de usuários cadastrados.
+
+  get:
+    description: Obtém a lista de usuários cadastrados.
+    responses:
+      200:
+        description: Sucesso ao obter a lista de usuários.
+        body:
+          application/json:
+            example: |
+              [
+                {
+                  "username": "Exemplo",
+                  "email": "exemplo@example.com"
+                }
+              ]
+      404:
+        description: Nenhum usuário encontrado.
